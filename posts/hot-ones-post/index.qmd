@@ -1,0 +1,49 @@
+---
+title: "New Insight"
+format: html
+editor: visual
+---
+
+
+
+```{r}
+library(palmerpenguins)
+library(tidyverse)
+```
+
+```{r}
+penguins
+```
+
+```{r}
+ggplot(penguins, aes(x = species, y = body_mass_g, fill = species)) +
+  geom_boxplot() +
+  labs(title = "Distribution of Body Mass by Species", y = "Body Mass (g)") +
+  theme_minimal()
+```
+
+```{r}
+species_island_summary <- penguins %>%
+  group_by(species, island) %>%
+  summarize(avg_flipper_length = mean(flipper_length_mm, na.rm = TRUE))
+ggplot(species_island_summary, aes(x = island, y = avg_flipper_length, fill = species)) +
+  geom_bar(stat = "identity", position = "dodge") +
+  labs(title = "Average Flipper Length by Species and Island", y = "Average Flipper Length (mm)") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(penguins, aes(x = bill_length_mm, y = bill_depth_mm, color = species)) +
+  geom_point() +
+  labs(title = "Relationship between Bill Length and Bill Depth", x = "Bill Length (mm)", y = "Bill Depth (mm)") +
+  theme_minimal()
+
+```
+
+```{r}
+ggplot(penguins, aes(x = factor(year))) +
+  geom_bar(fill = "steelblue") +
+  labs(title = "Distribution of Observations by Year", x = "Year", y = "Count") +
+  theme_minimal()
+```
